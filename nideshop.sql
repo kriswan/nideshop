@@ -62,7 +62,7 @@ CREATE TABLE `nideshop_ad_position` (
   `height` smallint(5) unsigned NOT NULL DEFAULT '0',
   `desc` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `nideshop_address` (
   `is_default` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +156,7 @@ CREATE TABLE `nideshop_attribute` (
   `sort_order` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `cat_id` (`attribute_category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE `nideshop_attribute_category` (
   `name` varchar(60) NOT NULL DEFAULT '',
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,7 +216,7 @@ CREATE TABLE `nideshop_brand` (
   `new_sort_order` tinyint(2) unsigned NOT NULL DEFAULT '10',
   PRIMARY KEY (`id`),
   KEY `is_show` (`is_show`)
-) ENGINE=MyISAM AUTO_INCREMENT=1046012 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1046012 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `nideshop_cart` (
   `list_pic_url` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `session_id` (`session_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -291,7 +291,7 @@ CREATE TABLE `nideshop_category` (
   `front_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1036008 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1036008 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -349,7 +349,7 @@ CREATE TABLE `nideshop_collect` (
   KEY `user_id` (`user_id`),
   KEY `goods_id` (`value_id`),
   KEY `is_attention` (`is_attention`)
-) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,7 +380,7 @@ CREATE TABLE `nideshop_comment` (
   `new_content` varchar(6550) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `id_value` (`value_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1006 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -439,7 +439,7 @@ CREATE TABLE `nideshop_coupon` (
   `use_end_date` int(11) NOT NULL DEFAULT '0',
   `min_goods_amount` decimal(10,2) unsigned NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -475,7 +475,7 @@ CREATE TABLE `nideshop_feedback` (
   `msg_area` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`msg_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -522,15 +522,15 @@ DROP TABLE IF EXISTS `nideshop_goods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `nideshop_goods` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` int(11) unsigned NOT NULL DEFAULT '0',
   `goods_sn` varchar(60) NOT NULL DEFAULT '',
   `name` varchar(120) NOT NULL DEFAULT '',
   `brand_id` int(11) unsigned NOT NULL DEFAULT '0',
   `goods_number` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `keywords` varchar(255) NOT NULL DEFAULT '',
-  `goods_brief` varchar(255) NOT NULL DEFAULT '',
-  `goods_desc` text,
+  `goods_brief` varchar(500) NOT NULL DEFAULT '',
+  `goods_desc` varchar(500) NOT NULL DEFAULT '',
   `is_on_sale` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `add_time` int(10) unsigned NOT NULL DEFAULT '0',
   `sort_order` smallint(4) unsigned NOT NULL DEFAULT '100',
@@ -539,18 +539,18 @@ CREATE TABLE `nideshop_goods` (
   `counter_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '专柜价格',
   `extra_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '附加价格',
   `is_new` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `goods_unit` varchar(45) NOT NULL COMMENT '商品单位',
-  `primary_pic_url` varchar(255) NOT NULL COMMENT '商品主图',
-  `list_pic_url` varchar(255) NOT NULL COMMENT '商品列表图',
+  `goods_unit` varchar(45) NOT NULL DEFAULT '件' COMMENT '商品单位',
+  `primary_pic_url` varchar(255) NOT NULL DEFAULT '' COMMENT '商品主图',
+  `list_pic_url` varchar(255) NOT NULL DEFAULT '' COMMENT '商品列表图',
   `retail_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '零售价格',
   `sell_volume` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '销售量',
   `primary_product_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '主sku　product_id',
   `unit_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '单位价格，单价',
-  `promotion_desc` varchar(255) NOT NULL,
-  `promotion_tag` varchar(45) NOT NULL,
-  `app_exclusive_price` decimal(10,2) unsigned NOT NULL COMMENT 'APP专享价',
-  `is_app_exclusive` tinyint(1) unsigned NOT NULL COMMENT '是否是APP专属',
-  `is_limited` tinyint(1) unsigned NOT NULL,
+  `promotion_desc` varchar(255) NOT NULL DEFAULT '',
+  `promotion_tag` varchar(45) NOT NULL DEFAULT '',
+  `app_exclusive_price` decimal(10,2) unsigned NOT NULL DEFAULT '0' COMMENT 'APP专享价',
+  `is_app_exclusive` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否是APP专属',
+  `is_limited` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `is_hot` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `goods_sn` (`goods_sn`),
@@ -558,7 +558,7 @@ CREATE TABLE `nideshop_goods` (
   KEY `brand_id` (`brand_id`),
   KEY `goods_number` (`goods_number`),
   KEY `sort_order` (`sort_order`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -583,11 +583,11 @@ CREATE TABLE `nideshop_goods_attribute` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `goods_id` int(11) unsigned NOT NULL DEFAULT '0',
   `attribute_id` int(11) unsigned NOT NULL DEFAULT '0',
-  `value` text NOT NULL,
+  `value` text NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `goods_id` (`goods_id`),
   KEY `attr_id` (`attribute_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=872 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=872 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -615,7 +615,7 @@ CREATE TABLE `nideshop_goods_gallery` (
   `sort_order` int(11) unsigned NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`),
   KEY `goods_id` (`goods_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=681 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=681 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -670,7 +670,7 @@ CREATE TABLE `nideshop_goods_specification` (
   PRIMARY KEY (`id`),
   KEY `goods_id` (`goods_id`),
   KEY `specification_id` (`specification_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='商品对应规格表值表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='商品对应规格表值表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -758,7 +758,7 @@ CREATE TABLE `nideshop_order` (
   KEY `shipping_status` (`shipping_status`),
   KEY `pay_status` (`pay_status`),
   KEY `pay_id` (`pay_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -792,7 +792,7 @@ CREATE TABLE `nideshop_order_express` (
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='订单物流信息表，发货时生成';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='订单物流信息表，发货时生成';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -828,7 +828,7 @@ CREATE TABLE `nideshop_order_goods` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   KEY `goods_id` (`goods_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -855,7 +855,7 @@ CREATE TABLE `nideshop_product` (
   `goods_number` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `retail_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=245 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -885,7 +885,7 @@ CREATE TABLE `nideshop_region` (
   KEY `parent_id` (`parent_id`),
   KEY `region_type` (`type`),
   KEY `agency_id` (`agency_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4044 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4044 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -910,7 +910,7 @@ CREATE TABLE `nideshop_related_goods` (
   `goods_id` int(11) unsigned NOT NULL DEFAULT '0',
   `related_goods_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -931,7 +931,7 @@ DROP TABLE IF EXISTS `nideshop_search_history`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `nideshop_search_history` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `keyword` char(50) NOT NULL,
+  `keyword` char(50) NOT NULL DEFAULT '',
   `from` varchar(45) NOT NULL DEFAULT '' COMMENT '搜索来源，如PC、小程序、APP等',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '搜索时间',
   `user_id` varchar(45) DEFAULT NULL,
@@ -988,7 +988,7 @@ CREATE TABLE `nideshop_specification` (
   `name` varchar(60) NOT NULL DEFAULT '',
   `sort_order` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='规格表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='规格表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1011,7 +1011,7 @@ DROP TABLE IF EXISTS `nideshop_topic`;
 CREATE TABLE `nideshop_topic` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '''''',
-  `content` text,
+  `content` text DEFAULT '',
   `avatar` varchar(255) NOT NULL DEFAULT '',
   `item_pic_url` varchar(255) NOT NULL DEFAULT '',
   `subtitle` varchar(255) NOT NULL DEFAULT '''',
@@ -1024,7 +1024,7 @@ CREATE TABLE `nideshop_topic` (
   `sort_order` int(11) unsigned NOT NULL DEFAULT '100',
   `is_show` tinyint(1) unsigned NOT NULL DEFAULT '1',
   KEY `topic_id` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=316 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1080,13 +1080,13 @@ CREATE TABLE `nideshop_user` (
   `last_login_ip` varchar(15) NOT NULL DEFAULT '',
   `user_level_id` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `nickname` varchar(60) NOT NULL,
-  `mobile` varchar(20) NOT NULL,
+  `mobile` varchar(20) NOT NULL DEFAULT '',
   `register_ip` varchar(45) NOT NULL DEFAULT '',
   `avatar` varchar(255) NOT NULL DEFAULT '',
   `weixin_openid` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_name` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1114,7 +1114,7 @@ CREATE TABLE `nideshop_user_coupon` (
   `order_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1139,7 +1139,7 @@ CREATE TABLE `nideshop_user_level` (
   `name` varchar(30) NOT NULL DEFAULT '',
   `description` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
