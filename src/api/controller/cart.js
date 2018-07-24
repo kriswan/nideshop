@@ -65,7 +65,7 @@ module.exports = class extends Base {
     }
 
     // 判断购物车中是否存在此规格商品
-    const cartInfo = await this.model('cart').where({goods_id: goodsId, product_id: productId}).find();
+    const cartInfo = await this.model('cart').where({goods_id: goodsId, product_id: productId, user_id: think.userId}).find();
     if (think.isEmpty(cartInfo)) {
       // 添加操作
 
@@ -95,7 +95,7 @@ module.exports = class extends Base {
         checked: 1
       };
 
-      await this.model('cart').thenAdd(cartData, {product_id: productId});
+      await this.model('cart').add(cartData);
     } else {
       // 如果已经存在购物车中，则数量增加
       if (productInfo.goods_number < (number + cartInfo.number)) {
@@ -105,7 +105,8 @@ module.exports = class extends Base {
       await this.model('cart').where({
         goods_id: goodsId,
         product_id: productId,
-        id: cartInfo.id
+        id: cartInfo.id,
+        user_id: think.userId
       }).increment('number', number);
     }
     return this.success(await this.getCart());
@@ -195,7 +196,7 @@ module.exports = class extends Base {
     }
 
     productId = productId.split(',');
-    await this.model('cart').where({product_id: {'in': productId}}).update({checked: parseInt(isChecked)});
+    await this.model('cart').where({product_id: {'in': productId}, user_id: think.userId}).update({checked: parseInt(isChecked)});
 
     return this.success(await this.getCart());
   }
@@ -209,7 +210,7 @@ module.exports = class extends Base {
 
     productId = productId.split(',');
 
-    await this.model('cart').where({product_id: {'in': productId}}).delete();
+    await this.model('cart').where({product_id: {'in': productId}, user_id: think.userId}).delete();
 
     return this.success(await this.getCart());
   }
